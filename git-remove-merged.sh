@@ -16,8 +16,8 @@ function checkOpts() {
 	    	exit 0;
 		;;
 	    \?) 
-			echo "Invalid option: -$OPTARG" >&2 
-			exit 1 
+		echo "Invalid option: -$OPTARG" >&2 
+		exit 1 
 		;;
 	  esac
 	done	

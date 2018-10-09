@@ -5,16 +5,14 @@ function getMerged() {
 }
 
 function removeMerged() {
-	getMerged | xargs --no-run-if-empty -n4 git branch -d
+	getMerged | xargs --no-run-if-empty -n1 -P4 git branch -d
 }
 
 function checkOpts() {
 	while getopts ":n" opt; do
 	  case $opt in
 	    n) 
-	    	for i in $(getMerged); do
-	        	echo " [would delete] $i"
-	    	done
+	    	getMerged | xargs -n1 --no-run-if-empty -i echo " [would delete] {}"
 	    	exit 0;
 		;;
 	    \?) 

@@ -13,11 +13,11 @@ export SHOW_MERGES=true
 export SCRIPT_SELF=${0##*/}
 export ARGS
 
-function printTags() {
+function printTagContains() {
 	local tags=($(git tag --contains $1))
 	local tags_count=${#tags[@]}
 	if (( $tags_count > 0 )); then
-		printf "tags contains %s\n" "$1"
+		printf "tags that contains %s\n" "$1"
 		for ((i=0; i<$tags_count; i++)); do
 			if [[ "$i" == "$(($tags_count-1))" ]]; then 
 				echo "└── ${tags[i]}"
@@ -27,6 +27,24 @@ function printTags() {
 			fi
 		done
 	fi
+}
+
+function printTagPoints() {
+	local tags=($(git tag --points-at $1))
+	local tags_count=${#tags[@]}
+	if (( $tags_count > 0 )); then
+		printf "tag %s point at %s\n\n" "$tags" "$1"
+	fi
+}
+
+function printBranch() {
+	local hash=$1
+	local count=$(git branch -a --contains $hash | wc -l)
+	if (( $count > 0 )); then
+		printf "all branches that contains %s\n\n" "$hash"
+		printBranchContains $hash
+		printBranchContains $hash 1	
+	fi	
 }
 
 function printBranchContains() {
@@ -42,8 +60,7 @@ function printBranchContains() {
 		local prefix="${remote}/"
 	fi
 	local branch_count=${#branches[@]}
-	if (( $branch_count > 0 )); then
-		printf "all branches that contains %s\n\n" "$hash"
+	if (( $branch_count > 0 )); then		
 		if [ "$isRemote" == 1 ]; then
 			echo "$remote"
 		else 
@@ -112,9 +129,9 @@ function main() {
 		printf "invalid hash: '%s'\n" "$ARGS"
 		usage
 	fi
-	printTags $hash
-	printBranchContains $hash
-	printBranchContains $hash 1	
+	printTagPoints $hash
+	printTagContains $hash
+	printBranch $hash
 	printBehindAhead $hash
 	printLogs $hash
 }

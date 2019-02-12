@@ -11,5 +11,5 @@
 #
 # ./git_url [remote]
 #
-[ -d "./.git" ] && { sensible-browser $( git remote get-url ${1:-origin} | sed 's/^git@\(.\+\):/https:\/\/\1\//' ); } || { echo "current directory is not a git based project"; exit 1; }
+[ -d "./.git" ] && { sensible-browser $( git remote get-url ${1:-origin} | sed 's/^git@\(.\+\):/https:\/\/\1\//' ) &> /dev/null; } || { echo "current directory is not a git based project"; exit 1; }
 

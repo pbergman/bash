@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# @author Philip Bergman <pbergman@live>
+# @author Philip Bergman <pbergman@live.nl>
 #
 # A function that will transform a git urls like example@example.com:foo/bar.git to
 # https://example.com/foo/bar.git and opens that url in the default browser.

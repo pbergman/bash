@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-# @author Philip Bergman <pbergman@live>
+# @author Philip Bergman <pbergman@live.nl>
 #
 # this script helps to get some stats about an commit, it wil print
-# the (remote and local) branches and tags that contains this commit, 
-# the count  of commits behind and ahead and all logs till head. By 
+# the (remote and local) branches and tags that contains this commit,
+# the count  of commits behind and ahead and all logs till head. By
 # default it uses the $(git remote)/HEAD (remote HEAD) to check against
 
 export HEAD=$(git remote)/HEAD
@@ -19,7 +19,7 @@ function printTagContains() {
 	if (( $tags_count > 0 )); then
 		printf "tags that contains %s\n" "$1"
 		for ((i=0; i<$tags_count; i++)); do
-			if [[ "$i" == "$(($tags_count-1))" ]]; then 
+			if [[ "$i" == "$(($tags_count-1))" ]]; then
 				echo "└── ${tags[i]}"
 				echo ""
 			else 
@@ -96,14 +96,14 @@ function usage() {
 function checkOpts() {
 	eval set -- $(getopt -o dvnhH: --long debug,verbose,no-merges,help,head: -- "$@")
 	while true; do
-	  case "$1" in	  
-        -h | --help ) usage; exit 2 ;;
-        -v | --verbose ) VERBOSE=true; shift ;;
-        -d | --debug ) set -x; shift ;;
-        -n | --no-merges ) SHOW_MERGES=false; shift ;;
-        -H | --head ) HEAD="$2"; shift 2 ;;
-        -- ) shift; break ;;
-        * ) break ;;
+	  case "$1" in
+        	-h | --help ) usage; exit 2 ;;
+        	-v | --verbose ) VERBOSE=true; shift ;;
+        	-d | --debug ) set -x; shift ;;
+        	-n | --no-merges ) SHOW_MERGES=false; shift ;;
+        	-H | --head ) HEAD="$2"; shift 2 ;;
+        	-- ) shift; break ;;
+        	* ) break ;;
 	  esac
 	done
 	ARGS=$@
@@ -123,7 +123,7 @@ function printLogs() {
 }
 
 function main() {
-	checkOpts "$@"	
+	checkOpts "$@"
 	local hash=$(git rev-parse --short "$ARGS")
 	if [ -z "$hash" ]; then
 		printf "invalid hash: '%s'\n" "$ARGS"

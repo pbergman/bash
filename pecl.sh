@@ -1,17 +1,17 @@
 #!/bin/bash
 #
-# @author Philip Bergman <pbergman@live>
+# @author Philip Bergman <pbergman@live.nl>
 #
-# A replacement for the php pecl installer, because it hasn't have native 
+# A replacement for the php pecl installer, because it hasn't have native
 # support for the possibility to easely switch between different php versions.
 #
 # exmaple:
-#   
+#
 #   ./pecl.sh oci8-1.4.10 -v5.6 -o"--with-oci8=instantclient,/opt/oracle/instantclient"
 #
 
 function cleanup {
-    if [ -n "$APPLICATION" ] && [ -d "/tmp/$APPLICATION" ]; then 
+    if [ -n "$APPLICATION" ] && [ -d "/tmp/$APPLICATION" ]; then
         rm -rf /tmp/$APPLICATION
     fi
 }
@@ -23,7 +23,7 @@ function usage {
     echo "   -h, --help                 Print this helper"
     echo "   -v, --php-version          Set the php version [default: 5.6]"
     echo "   -o, --configure-options    Add extra options for the configure command"
-    exit -2 
+    exit 2
 }
 
 if [ -z "$1" ]; then

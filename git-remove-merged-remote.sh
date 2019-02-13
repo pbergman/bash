@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function getRemoteMerged() {
-	git branch -r --merged  | grep -Ev 'release\/|HEAD' | sed 's/origin\///'
+        git branch -r --merged  | grep -Ev '(release\/[0-9]{1,}.[0-9]{1,}.x|HEAD)$' | sed 's/origin\///'
 }
 
 function removeRemoteMerged() {

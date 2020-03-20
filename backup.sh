@@ -17,12 +17,10 @@ function getExcludes() {
         '/media/*'
         '/lost+found'
     )
-
     for i in $(find /var/log -type d); do
             items+=($(printf '%s/*.1'  "$i"))
             items+=($(printf '%s/*.gz' "$i"))
     done
-
     echo "${items[@]}" | tr ' ' "\n";
 
 }
@@ -85,6 +83,9 @@ function main() {
 
     # move current working directory
     cd $1
+    
+    ## remove downloaded packes
+    apt-get clean
 
     sync $1
     pack $1
